@@ -1,5 +1,7 @@
 import os
 
+lista_restaurantes = ['Taikan', 'Mc Donalds', 'Burguer King', 'Giraffas']
+
 def exibir_menu_programa():
         print("""
 
@@ -18,35 +20,62 @@ def exibir_menu_programa():
     ₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌₌
     """)
 
+def voltar_ao_menu_principal():
+    input('Digite uma tecla para voltar ao menu principal...')
+    main()
+
+def exibir_subtitulo(texto):
+    os.system('clear')
+    print(texto)
+    print()
+
 def escolher_opcao():
-    opcao_escolhida = int(input('Escolha uma opção: \n'))
+    try:
+        opcao_escolhida = int(input('Escolha uma opção: \n'))
 
-    match opcao_escolhida:
-        case 1:
-            cadastrar_restaurante()
-        case 2:
-            listar_restaurante()
-        case 3:
-            ativar_restaurante()
-        case 4:
-            finalizar_app()
-        case _:
-            print('Opção Inválida')
-
+        match opcao_escolhida:
+            case 1:
+                cadastrar_restaurante()
+            case 2:
+                listar_restaurante()
+            case 3:
+                ativar_restaurante()
+            case 4:
+                finalizar_app()
+            case _:
+                opcao_invalida()
+    except:
+        opcao_invalida()
+    
 def cadastrar_restaurante():
-    print('Cadastrar Restaurante')
+    exibir_subtitulo('Cadastro de Novos Restaurantes')
+    nome_restaurante = input('Digite o nome do restaurante que deseja cadastrar: ')
+    lista_restaurantes.append(nome_restaurante)
+    print(f'\nRestaurante {nome_restaurante} cadastrado com sucesso!\n')
+    voltar_ao_menu_principal()
 
 def listar_restaurante():
-    print('Listar Restaurante')
+    exibir_subtitulo('Lista de Restaurantes')
+
+    for restaurante in lista_restaurantes:
+        print('-', restaurante)
+        
+    print('\n')
+    voltar_ao_menu_principal()
 
 def ativar_restaurante():
-    print('Ativar Restaurante')
+    print('Ativar Restaurante\n')
+    voltar_ao_menu_principal()
 
 def finalizar_app():
-    os.system('clear')
-    print('Finalizando app...')
-    
+    exibir_subtitulo('Finalizando app...')
+
+def opcao_invalida():
+    print('Opção Inválida!\n')
+    voltar_ao_menu_principal()
+
 def main():
+    os.system('clear')
     exibir_menu_programa()
     escolher_opcao()
 
