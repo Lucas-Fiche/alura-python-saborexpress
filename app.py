@@ -1,6 +1,8 @@
 import os
 
-lista_restaurantes = ['Taikan', 'Mc Donalds', 'Burguer King', 'Giraffas']
+lista_restaurantes = [{'nome':'Praça', 'categoria': 'Japonesa', 'ativo': False},
+                      {'nome': 'Pizza Suprema', 'categoria': 'Pizza Italiana', 'ativo': True},                  
+                      {'nome': 'Mexican', 'categoria': 'Mexicano', 'ativo': True}]
 
 def exibir_menu_programa():
         print("""
@@ -44,13 +46,15 @@ def escolher_opcao():
                 finalizar_app()
             case _:
                 opcao_invalida()
-    except:
+    except ValueError:
         opcao_invalida()
     
 def cadastrar_restaurante():
     exibir_subtitulo('Cadastro de Novos Restaurantes')
     nome_restaurante = input('Digite o nome do restaurante que deseja cadastrar: ')
-    lista_restaurantes.append(nome_restaurante)
+    categoria_restaurante = input(f'Digite o nome da Categoria do restaurante {nome_restaurante}: ')
+    dados_restaurante = {'nome': nome_restaurante, 'categoria': categoria_restaurante, 'ativo': False}
+    lista_restaurantes.append(dados_restaurante)
     print(f'\nRestaurante {nome_restaurante} cadastrado com sucesso!\n')
     voltar_ao_menu_principal()
 
@@ -58,8 +62,12 @@ def listar_restaurante():
     exibir_subtitulo('Lista de Restaurantes')
 
     for restaurante in lista_restaurantes:
-        print('-', restaurante)
-        
+        nome_restaurante = restaurante['nome']
+        categoria_restaurante = restaurante['categoria']
+        ativo_restaurante = restaurante['ativo']
+
+        print(f'-{nome_restaurante} | {categoria_restaurante} | {ativo_restaurante}')
+       
     print('\n')
     voltar_ao_menu_principal()
 
